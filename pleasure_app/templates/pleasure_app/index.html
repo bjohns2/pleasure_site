@@ -1,0 +1,14 @@
+<p> This can be a django template! or just html i guess. </p>
+
+
+{% if educator_list %}
+	<ul>
+	{% for ed in educator_list %}
+		<li>{{ ed }}</li>
+	{% endfor %}
+	</ul>
+{% else %}
+	<p> No educators known. </p>
+{% endif %}
+
+
