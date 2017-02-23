@@ -23,6 +23,36 @@ def scheduling(request):
 		'presentation_list':presentation_list,
 	}
 	return HttpResponse(template.render(context, request))
-	
 
+def update_scheduling(request):
+	try:
+		presentation = Presentation.objects.get(id=request.POST['pres_id'])
+		presentation.educator1 = Educator.objects.filter(athena=request.POST['ed1']).first()
+		presentation.educator2 = Educator.objects.filter(athena=request.POST['ed2']).first()
+		presentation.supporter = Educator.objects.filter(athena=request.POST['sup']).first()
+		presentation.save()
+		response = {
+			'status' : 1,
+			'message' : 'Updated!'
+		}
+		return HttpResponse("Succesfully updated!");
+	except Exception as e:
+		return HttpResponse("Update failed! "+str(e));
+
+def new_presentation(request):
+	try:
+		presentation = Presentation(
+			location=request.POST['location'],
+			subject=request.POST['module'],
+			date=request.POST['date'],
+	                #educator1 = Educator.objects.filter(athena=request.POST['ed1']).first(),
+                	#educator2 = Educator.objects.filter(athena=request.POST['ed2']).first(),
+                	#supporter = Educator.objects.filter(athena=request.POST['sup']).first(),
+			notes=request.POST['notes']
+		)
+		presentation.save()
+		return scheduling(request)
+		#return HttpResponse("Succesfully created a new presentation!");
+	except Exception as e:
+		return HttpResponse("New presentation creation failed! "+str(e));
 

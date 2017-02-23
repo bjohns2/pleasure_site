@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
+{% load static %}
+
 <head>
 
     <meta charset="utf-8">
@@ -216,7 +218,7 @@
                 <!-- /.row -->
 
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-10">
                         <h2>Module Presentations</h2>
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover table-striped">
@@ -231,20 +233,41 @@
                                     </tr>
                                 </thead>
                                 {% if presentation_list %}
-                                    <ul>
+                                    <tr>
                                     {% for pres in presentation_list %}
                                         <td>{{ pres.location }}</td>
                                         <td>{{ pres.date }}</td>
                                         <td>{{ pres.subject }}</td>
-                                        <td>{{ pres.educator1 }}</td>
-                                        <td>{{ pres.educator2 }}</td>
-                                        <td>{{ pres.supporter }}</td>
-                                    {% endfor %}
-                                    </ul>
+					<td {% if not pres.educator1 %} class="danger" {% endif %} > 
+						<select id="ed1_select_{{pres.id}}" onchange="updatePresentation('{{pres.id}}')">
+							<option value="Null"> None </option>
+							{% for ed in educator_list %}
+								<option value="{{ ed.athena }}" {% if ed == pres.educator1 %}selected{% endif %} >{{ ed }}</option>
+							{% endfor %}
+						</select>					
+					</td>
+                                        <td {% if not pres.educator2 %} class="danger" {% endif %} > 
+                                                <select id="ed2_select_{{pres.id}}"  onchange="updatePresentation('{{pres.id}}')">
+                                                        <option value="Null"> None </option>
+                                                        {% for ed in educator_list %}
+                                                                <option value="{{ ed.athena }}" {% if ed == pres.educator2 %}selected{% endif %} >{{ ed }}</option>
+                                                        {% endfor %}
+                                                </select>                                               
+                                        </td>
+                                        <td {% if not pres.supporter %} class="danger" {% endif %} > 
+                                                <select id="sup_select_{{pres.id}}"  onchange="updatePresentation('{{pres.id}}')">
+                                                        <option value="Null"> None </option>
+                                                        {% for ed in educator_list %}
+                                                                <option value="{{ ed.athena }}" {% if ed == pres.supporter %}selected{% endif %} >{{ ed }}</option>
+                                                        {% endfor %}
+                                                </select>                                               
+                                        </td>
+                                    </tr>
+				    {% endfor %}
                                     </table>
                                 {% else %}
                                     </table>
-                                    <p> No educators known. </p>
+                                    <p> No upcoming presentations. </p>
                                 {% endif %}
 <!--
                                 <tbody>
@@ -261,6 +284,29 @@
                             
                         </div>
                     </div>
+		<div class="row">
+			<div class="col-lg-8">
+			<h2>New Presentation</h2>
+				<form action="new_presentation/" method="post">
+    					{% csrf_token %}
+					<label for="location">Sponsor/Location: </label>
+    					<input id="location" type="text" name="location">
+    					<br><label for="date">Date</label>
+					<input id="date" type="datetime-local" name="date">
+					<br><label for="module">Module:</label>
+					<br><input id="module1" type="radio" name="module" value="COM"> Communication
+                                        <br><input id="module2" type="radio" name="module" value="VAL"> Values Clarification
+                                        <br><input id="module3" type="radio" name="module" value="ID"> Identity
+                                        <br><input id="module4" type="radio" name="module" value="LOV"> Love and Intimacy
+                                        <br><input id="module5" type="radio" name="module" value="CUL"> Hacking Culture
+					
+					<br><label for="notes">Notes:</label>
+					<input id="notes" type="text" name="notes">
+					
+					<br><input type="submit" value="Submit"">
+				</form>
+			</div>
+		</div>
                     
                 <!-- /.row -->
 <!--
@@ -471,6 +517,33 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{% static "pleasure_app/js/bootstrap.min.js"%}"></script>
+
+                                <script>
+                                function updatePresentation(pres_id) {
+                                        console.log(pres_id);
+                                        console.log(document.getElementById('ed1_select_'+pres_id).value);
+                                        console.log(document.getElementById('ed2_select_'+pres_id).value);
+                                        console.log(document.getElementById('sup_select_'+pres_id).value);
+                                        var data = {
+                                                "pres_id":pres_id,
+                                                "ed1":document.getElementById('ed1_select_'+pres_id).value,
+                                                "ed2":document.getElementById('ed2_select_'+pres_id).value,
+                                                "sup":document.getElementById('sup_select_'+pres_id).value      
+                                        }
+                                        $.post( "{% url 'update_scheduling' %}", {
+                                                csrfmiddlewaretoken: '{{ csrf_token}}' ,
+                                                "pres_id":pres_id,
+                                                "ed1":document.getElementById('ed1_select_'+pres_id).value,
+                                                "ed2":document.getElementById('ed2_select_'+pres_id).value,
+                                                "sup":document.getElementById('sup_select_'+pres_id).value 
+                                        },
+                                        function(data) {
+                                                console.log(data); 
+                                        }
+                                        );
+                                }
+                                </script>
+
 
 </body>
 

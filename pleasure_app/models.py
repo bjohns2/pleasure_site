@@ -9,6 +9,8 @@ class Educator(models.Model):
 	last_name = models.CharField(max_length=200)
 	training_class = models.CharField(max_length=10)
 	graduation_year = models.IntegerField(default=0)
+	athena = models.CharField(max_length=20)
+	active = models.BooleanField(default=True)
 
 	trained_communication = models.ForeignKey(
 		'Training',
@@ -65,13 +67,46 @@ class Training(models.Model):
 		return "Training: " + str(self.module) + " on " + str(self.date) 
 
 class Presentation(models.Model):
-	subject = models.CharField(max_length=200)
-	date = models.DateField()
-	educators = models.ManyToManyField(Educator)
-	notes = models.TextField()	
+	# TODO: DRY        
+	MODULE_CHOICE_ENUM = (
+                ('COM','Communication'),
+                ('VAL','Values'),
+                ('ID','Identity'),
+                ('LOV','Love'),
+                ('CUL','Culture'),
+        )
+	location = models.CharField(max_length=200,null=True,blank=True)
+	subject = models.CharField(max_length=3,choices=MODULE_CHOICE_ENUM)
+	date = models.DateTimeField()
+	educator1 = models.ForeignKey(
+		'Educator',
+		related_name='educator1',
+		blank=True,
+		null=True,
+		# TODO: limit choices so that eds not trained can't sign up
+		#limit_choices_to	
+	)
+	educator2 = models.ForeignKey(
+                'Educator',
+                related_name='educator2',
+                blank=True,
+                null=True,
+        )
+        supporter = models.ForeignKey(
+                'Educator',
+                related_name='supporter',
+                blank=True,
+                null=True,
+        )
+	notes = models.TextField(null=True,blank=True)	
 
 	def __str__(self):
-		return "Presentation: " + str(self.subject) + " on " + str(self.date)
+		return "Presentation at " + str(self.location) + " on " + str(self.subject) + ", " + str(self.date)
 
+class Meeting(models.Model):
+	date = models.DateTimeField()
+	attendees = models.ManyToManyField(Educator)
 
+	def __str__(self):
+		return "Meeting at " + str(self.date) + " with " + str(self.attendees.count()) + " educators"
 
