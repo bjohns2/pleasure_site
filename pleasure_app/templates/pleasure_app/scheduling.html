@@ -160,6 +160,10 @@
                     <li class="active">
                         <a href="scheduling.html.html"><i class="fa fa-fw fa-table"></i> Scheduling</a>
                     </li>
+                    <li>
+                        <a href="training.html"><i class ="fa fa-fw fa-graduation-cap"></i> Training</a>
+                   </li>
+
 <!--
                     <li>
                         <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
@@ -214,7 +218,10 @@
                     </div>
                 </div>
                 <!-- /.row -->
-
+		<div style="display:none;" id="overwrite-error"  class = "alert alert-danger">
+			<strong> Error! </strong>
+			Someone's aleady signed up for that module. Make sure it's ok to kick them off, then switch the educator to None before switching to yourself.
+		</div>
                 <div class="row">
                     <div class="col-lg-10">
                         <h2>Module Presentations</h2>
@@ -234,7 +241,7 @@
                                     <tr>
                                     {% for pres in presentation_list %}
                                         <td>{{ pres.location }}</td>
-                                        <td>{{ pres.date }}</td>
+                                        <td>{{ pres.date|date:"l N j, P" }}</td>
                                         <td>{{ pres.subject }}</td>
 					<td {% if not pres.educator1 %} class="danger" {% endif %} > 
 						<select id="ed1_select_{{pres.id}}" onchange="updatePresentation('{{pres.id}}')">
@@ -536,6 +543,9 @@
                                                 "sup":document.getElementById('sup_select_'+pres_id).value 
                                         },
                                         function(data) {
+						if (data == "Overwrite error!") {
+							document.getElementById('overwrite-error').style = "display:block;"
+						}
                                                 console.log(data); 
                                         }
                                         );

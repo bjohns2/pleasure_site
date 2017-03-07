@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Pleasure Attendance</title>
+    <title>Pleasure Trainings</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{% static "pleasure_app/css/bootstrap.min.css"%}" rel="stylesheet">
@@ -165,10 +165,9 @@
                     <li>
                         <a href="scheduling.html"><i class="fa fa-fw fa-table"></i> Scheduling</a>
                     </li>
-		    <li>
-			<a href="training.html"><i class ="fa fa-fw fa-graduation-cap"></i> Training</a>
-		   </li>
-		
+                    <li>
+                        <a href="training.html"><i class ="fa fa-fw fa-graduation-cap"></i> Training</a>
+                   </li>
 <!--
                     <li>
                         <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
@@ -210,7 +209,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Attendance
+                            Trainings
                             <small></small>
                         </h1>
                         <ol class="breadcrumb">
@@ -227,42 +226,61 @@
                 
                 
                 <div class="row">
-                    <div class="col-lg-12" >
-                        <h2>Meeting Attendance</h2>
+                    <div class="col-md-8" >
+                        <h2>Who's Trained in What</h2>
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover table-striped">
                                 <thead>
                                     <tr>
                                         <th>Educator</th>
-					{% for meeting in meeting_list %}
-                                        <th>{{ meeting.date|date:"m/d/y" }}</th>
-					{% endfor %}
-                                   	<th style='padding:1px; width:300px'> <!-- don't judge me. put it in a separate css file yourself. -->
-					    <div class='col-sm-10'><div class=form-group"><div class='input-group date' id='datetimepicker1'>
-						<input type='text' class="form-control" id="datetimenew" placeholder="01/01/2017 7:00 PM" /> 
-						<span class="input-group-addon">
-							<span class="glyphicon glyphicon-calendar"></span>
-						</span>
-					    </div></div></div>
-					    <div class='col'>
-						<a href="#" class="btn btn-success"><span class="glyphicon glyphicon-plus" onclick="addMeeting()"></span></a>
-					    </div>
+                                        <th>Communication</th>
+					<th>Values</th>
+					<th>Identity</th>
+					<th>Love</th>
+					<th>Culture</th>
 				   </tr>
                                 </thead>
 				{% for ed in educator_list %}
                                 <tr>
 					<td>{{ ed.first_name }} {{ed.last_name}}</td>
-					{% for meeting in meeting_list %}
-                                        <td>{% if ed in meeting.attendees.all %}
-						<i class="fa fa-check" aria-hidden="true"></i>
-					    {% endif %}</td>
-					{% endfor %}
-                                	<td><label><input type="checkbox" id="new_attend_{{ed.athena}}"></label></td>
+                                        <td>{% if ed.trained_communication %} {{ ed.trained_communication.date }} {% endif %}</td>
+					<td>{% if ed.trained_values %} {{ ed.trained_values.date }} {% endif %} </td>
+                                        <td>{% if ed.trained_identity %} {{ ed.trained_identity.date }} {% endif %}</td>
+                                        <td>{% if ed.trained_love %} {{ ed.trained_love.date }} {% endif %} </td>
+                                        <td>{% if ed.trained_culture %} {{ ed.trained_culture.date }} {% endif %}</td>
+
 				</tr>
 				{% endfor %}
                             </table>
                         </div>
                     </div>
+		    <div class="col-md-4">
+			<h2> Training Signups </h2>
+			{% for training in future_training_list %}
+			<div class="panel panel-info">
+				<div class="panel-heading"> {{ training }} </div>
+				<div class="panel-body">
+					<p> {{ training.notes }} </p>
+	                               		<select id="training_select_{{training.id}}" onchange="addEdToTraining('{{training.id}}')">
+                                                        <option value="Null"> Add an Educator  </option>
+                                                        {% for ed in educator_list %}
+                                                                <option value="{{ ed.athena }}" >{{ ed.first_name }} {{ed.last_name }} </option>
+                                                        {% endfor %}
+                                                </select>					
+					<ul>
+					{% for ed in educator_list %}
+						{% if ed.trained_communication == training or ed.trained_values == training or ed.trained_identity == training or ed.trained_love == training or ed.trained_culture == training %}
+							<li>{{ ed.first_name }} {{ed.last_name }} <a><i class="fa fa-times" onclick="removeEdFromTraining('{{training.id}}','{{ed.athena}}')"></i></a></li>
+						{% endif %}
+					{% endfor %}
+					</ul>
+				</div>
+			</div>
+			{% endfor %}
+			{% if not future_training_list %}
+				<p> No upcoming trainings. </p>
+			{% endif %}
+		   </div>
                 </div>
                 <!-- /.row -->
                 
@@ -316,6 +334,41 @@
 
 	}		
     </script>
+                                <script>
+                                function addEdToTraining(training_id) {
+                                        console.log(document.getElementById('training_select_'+training_id).value);
+                                        $.post( "{% url 'add_ed_to_training' %}", {
+                                                csrfmiddlewaretoken: '{{ csrf_token}}' ,
+                                                "training_id":training_id,
+                                                "educator":document.getElementById('training_select_'+training_id).value,    
+                                        },
+                                        function(data) {
+                                                console.log(data); 
+                                                // TODO: check for success before reloading
+                                                location.reload(true);
+                                        
+ 
+				       }
+                                        );
+                                }
+				function removeEdFromTraining(training_id,ed_athena) {
+                                        $.post( "{% url 'remove_ed_from_training' %}", {
+                                                csrfmiddlewaretoken: '{{ csrf_token}}' ,
+                                                "training_id":training_id,
+                                                "educator":ed_athena,    
+                                        },
+                                        function(data) {
+                                                console.log(data); 
+						// TODO: check for success before reloading
+                                        	location.reload(true);
+					}
+                                        );
+                                }
+				
+                                </script>
+
+
+
 
 </body>
 

@@ -11,16 +11,17 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Pleasure Attendance</title>
+    <title>SB Admin - Bootstrap Admin Template</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{% static "pleasure_app/css/bootstrap.min.css"%}" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="{% static "pleasure_app/css/sb-admin.css"%}" rel="stylesheet">
-    <!-- TODO: make this local. -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.45/css/bootstrap-datetimepicker.min.css" /> 
-    
+
+    <!-- Morris Charts CSS -->
+    <link href="{% static "pleasure_app/css/plugins/morris.css"%}" rel="stylesheet">
+
     <!-- Custom Fonts -->
     <link href="{% static "pleasure_app/font-awesome/css/font-awesome.min.css"%}" rel="stylesheet" type="text/css">
 
@@ -61,8 +62,7 @@
                                         <img class="media-object" src="http://placehold.it/50x50" alt="">
                                     </span>
                                     <div class="media-body">
-                                        <h5 class="media-heading">
-                                            <strong>John Smith</strong>
+                                        <h5 class="media-heading"><strong>John Smith</strong>
                                         </h5>
                                         <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
                                         <p>Lorem ipsum dolor sit amet, consectetur...</p>
@@ -77,8 +77,7 @@
                                         <img class="media-object" src="http://placehold.it/50x50" alt="">
                                     </span>
                                     <div class="media-body">
-                                        <h5 class="media-heading">
-                                            <strong>John Smith</strong>
+                                        <h5 class="media-heading"><strong>John Smith</strong>
                                         </h5>
                                         <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
                                         <p>Lorem ipsum dolor sit amet, consectetur...</p>
@@ -93,8 +92,7 @@
                                         <img class="media-object" src="http://placehold.it/50x50" alt="">
                                     </span>
                                     <div class="media-body">
-                                        <h5 class="media-heading">
-                                            <strong>John Smith</strong>
+                                        <h5 class="media-heading"><strong>John Smith</strong>
                                         </h5>
                                         <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
                                         <p>Lorem ipsum dolor sit amet, consectetur...</p>
@@ -135,7 +133,7 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>{% if user.username %} {{ user.username }}{% else %} Log in{% endif %} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
@@ -148,7 +146,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                            <a href="logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                         </li>
                     </ul>
                 </li>
@@ -156,7 +154,7 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li>
+                    <li class="active">
                         <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
@@ -165,38 +163,9 @@
                     <li>
                         <a href="scheduling.html"><i class="fa fa-fw fa-table"></i> Scheduling</a>
                     </li>
-		    <li>
-			<a href="training.html"><i class ="fa fa-fw fa-graduation-cap"></i> Training</a>
-		   </li>
-		
-<!--
                     <li>
-                        <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
-                    </li>
-                    <li>
-                        <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
-                    </li>
-                    <li>
-                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo" class="collapse">
-                            <li>
-                                <a href="#">Dropdown Item</a>
-                            </li>
-                            <li>
-                                <a href="#">Dropdown Item</a>
-                            </li>
-                        </ul>
-                    </li>
-              <!--      <li class="active">
-                        <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
-                    </li>
-                    <li>
-                        <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
-                    </li>
--->
+                        <a href="training.html"><i class ="fa fa-fw fa-graduation-cap"></i> Training</a>
+                   </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -206,66 +175,9 @@
 
             <div class="container-fluid">
 
-                <!-- Page Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">
-                            Attendance
-                            <small></small>
-                        </h1>
-                        <ol class="breadcrumb">
-                            <li>
-                                <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                            </li>
-                            <li class="active">
-                                <i class="fa fa-file"></i> Blank Page
-                            </li>
-                        </ol>
-                    </div>
-                </div>
-                <!-- /.row -->
-                
-                
-                <div class="row">
-                    <div class="col-lg-12" >
-                        <h2>Meeting Attendance</h2>
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Educator</th>
-					{% for meeting in meeting_list %}
-                                        <th>{{ meeting.date|date:"m/d/y" }}</th>
-					{% endfor %}
-                                   	<th style='padding:1px; width:300px'> <!-- don't judge me. put it in a separate css file yourself. -->
-					    <div class='col-sm-10'><div class=form-group"><div class='input-group date' id='datetimepicker1'>
-						<input type='text' class="form-control" id="datetimenew" placeholder="01/01/2017 7:00 PM" /> 
-						<span class="input-group-addon">
-							<span class="glyphicon glyphicon-calendar"></span>
-						</span>
-					    </div></div></div>
-					    <div class='col'>
-						<a href="#" class="btn btn-success"><span class="glyphicon glyphicon-plus" onclick="addMeeting()"></span></a>
-					    </div>
-				   </tr>
-                                </thead>
-				{% for ed in educator_list %}
-                                <tr>
-					<td>{{ ed.first_name }} {{ed.last_name}}</td>
-					{% for meeting in meeting_list %}
-                                        <td>{% if ed in meeting.attendees.all %}
-						<i class="fa fa-check" aria-hidden="true"></i>
-					    {% endif %}</td>
-					{% endfor %}
-                                	<td><label><input type="checkbox" id="new_attend_{{ed.athena}}"></label></td>
-				</tr>
-				{% endfor %}
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.row -->
-                
+		{% block content %}
+		{% endblock %}
+
             </div>
             <!-- /.container-fluid -->
 
@@ -276,47 +188,16 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="{% static "pleasure_app/js/jquery.js"%}"></script>
+    <script src="{% static "pleasure_app/js/jquery.js" %}"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="{% static "pleasure_app/js/bootstrap.min.js"%}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>   
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="{% static "pleasure_app/js/bootstrap.min.js" %}"></script>
 
-
-
-    <script type="text/javascript">
-	$(function () {
-		$('#datetimepicker1').datetimepicker();
-	});
-
-	function addMeeting() {
-		var attendance = [];
-		{% for ed in educator_list %}
-			if ( $('#new_attend_{{ed.athena}}').is(":checked") ) {
-				attendance.push('{{ed.athena}}');
-			//attendance.{{ed.athena}} = $('#new_attend_{{ed.athena}}').is(":checked");
-			}
-		{% endfor %}
-		var datetime = $('#datetimenew').val();
-		console.log(attendance);
-		console.log(datetime);	
-		$.post( "/internal/update_attendance", {
-			csrfmiddlewaretoken: '{{ csrf_token }}',
-			"attendance[]":attendance,
-			"datetime":datetime
-		},
-		function(data) {
-			console.log(data);
-			if (data="Success! Created new presentation.") {
-				location.reload(true);
-				}
-		}
-		);
-
-	}		
-    </script>
+    <!-- Morris Charts JavaScript -->
+    <script src="{% static "pleasure_app/js/plugins/morris/raphael.min.js" %}"></script>
+    <script src="{% static "pleasure_app/js/plugins/morris/morris.min.js" %}"></script>
+    <script src="{% static "pleasure_app/js/plugins/morris/morris-data.js" %}"></script>
 
 </body>
 
-</html>	
+</html>

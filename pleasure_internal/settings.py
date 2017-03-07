@@ -123,5 +123,6 @@ USE_TZ = True
 STATIC_URL = '/internal/my_static/'
 #STATIC_ROOT = '/afs/athena.mit.edu/activity/p/pleasure/Scripts/django/pleasure_internal/static/'
 STATIC_ROOT = '/afs/athena.mit.edu/activity/p/pleasure/web_scripts/internal/my_static'
+LOGIN_REDIRECT_URL = 'index'
 
 
