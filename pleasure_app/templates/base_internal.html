@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>Pleasure Internal</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{% static "pleasure_app/css/bootstrap.min.css"%}" rel="stylesheet">
@@ -34,6 +34,8 @@
 
 </head>
 
+
+
 <body>
 
     <div id="wrapper">
@@ -48,7 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SB Admin</a>
+                <a class="navbar-brand" href="index.html">Pleasure Internal</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -154,16 +156,16 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li class="active">
+                    <li {% if request.path == '/internal/index.html' %} class="active" {% endif %}>
                         <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
-                    <li>
+                    <li {% if request.path == '/internal/attendance.html' %} class="active" {% endif %}>
                         <a href="attendance.html"><i class="fa fa-fw fa-users"></i> Attendance</a>
                     </li>
-                    <li>
+                    <li {% if request.path == '/internal/scheduling.html' %} class="active" {% endif %}>
                         <a href="scheduling.html"><i class="fa fa-fw fa-table"></i> Scheduling</a>
                     </li>
-                    <li>
+                    <li{% if request.path == '/internal/training.html' %} class="active" {% endif %}>
                         <a href="training.html"><i class ="fa fa-fw fa-graduation-cap"></i> Training</a>
                    </li>
                 </ul>
@@ -195,8 +197,14 @@
 
     <!-- Morris Charts JavaScript -->
     <script src="{% static "pleasure_app/js/plugins/morris/raphael.min.js" %}"></script>
-    <script src="{% static "pleasure_app/js/plugins/morris/morris.min.js" %}"></script>
+   <!-- <script src="{% static "pleasure_app/js/plugins/morris/morris.min.js" %}"></script>
     <script src="{% static "pleasure_app/js/plugins/morris/morris-data.js" %}"></script>
+   -->
+
+<script> console.log( '{{ request.path }}') </script>
+
+   {% block scripts %}
+   {% endblock %}
 
 </body>
 
