@@ -99,6 +99,7 @@ class Presentation(models.Model):
                 null=True,
         )
 	notes = models.TextField(null=True,blank=True)	
+	attendees = models.IntegerField(default=-1)
 
 	def __str__(self):
 		return "Presentation at " + str(self.location) + " on " + str(self.subject) + ", " + str(self.date)

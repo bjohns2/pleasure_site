@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from django.utils import timezone
+from datetime import datetime, timedelta
+
 
 from .models import Educator
 from .models import Presentation
@@ -11,9 +13,17 @@ from .models import Training
 # Create your views here.
 def index(request):
 	educator_list = Educator.objects.filter(active=True).order_by('first_name')
+	last_week_presentations = Presentation.objects.filter(date__gte=datetime.now()-timedelta(days=7)).filter(date__lte=datetime.now()).order_by('date')
+	next_week_presentations = Presentation.objects.filter(date__lte=datetime.now()+timedelta(days=7)).filter(date__gte=datetime.now()).order_by('date')
+	last_week_trainings = Training.objects.filter(date__gte=datetime.now()-timedelta(days=7)).filter(date__lte=datetime.now()).order_by('date')
+	next_week_trainings = Training.objects.filter(date__lte=datetime.now()+timedelta(days=7)).filter(date__gte=datetime.now()).order_by('date')
 	template = loader.get_template('pleasure_app/index.html')
 	context = {
 		'educator_list':educator_list,
+		'next_week_presentations':next_week_presentations,
+		'last_week_presentations':last_week_presentations,
+		'last_week_trainings':last_week_trainings,
+		'next_week_trainings':next_week_trainings,
 	}
 	return HttpResponse(template.render(context, request))
 
@@ -145,4 +155,15 @@ def remove_ed_from_training(request):
         except Exception as e:
                 return HttpResponse("Error!"+str(e));
 
+def history(request):
+        educator_list = Educator.objects.filter(active=True).order_by('first_name')
+        presentation_list = Presentation.objects.filter(date__lte=datetime.now()).order_by('-date')
+        training_list = Training.objects.all().filter(date__lte=datetime.now()).order_by('-date')
+	template = loader.get_template('pleasure_app/history.html')
+        context = {
+                'educator_list':educator_list,
+                'presentation_list':presentation_list,
+        	'training_list':training_list,
+	}
+        return HttpResponse(template.render(context, request))
 

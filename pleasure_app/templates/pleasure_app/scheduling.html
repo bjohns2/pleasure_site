@@ -24,7 +24,7 @@
 			Someone's aleady signed up for that module. Make sure it's ok to kick them off, then switch the educator to None before switching to yourself.
 		</div>
                 <div class="row">
-                    <div class="col-lg-10">
+                    <div class="col-lg-9">
                         <h2>Module Presentations</h2>
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover table-striped">
@@ -48,7 +48,7 @@
 						<select id="ed1_select_{{pres.id}}" onchange="updatePresentation('{{pres.id}}')">
 							<option value="Null"> None </option>
 							{% for ed in educator_list %}
-								<option value="{{ ed.athena }}" {% if ed == pres.educator1 %}selected{% endif %} >{{ ed }}</option>
+								<option value="{{ ed.athena }}" {% if ed == pres.educator1 %}selected{% endif %} >{{ ed.first_name }} {{ ed.last_name }}</option>
 							{% endfor %}
 						</select>					
 					</td>
@@ -56,7 +56,7 @@
                                                 <select id="ed2_select_{{pres.id}}"  onchange="updatePresentation('{{pres.id}}')">
                                                         <option value="Null"> None </option>
                                                         {% for ed in educator_list %}
-                                                                <option value="{{ ed.athena }}" {% if ed == pres.educator2 %}selected{% endif %} >{{ ed }}</option>
+                                                                <option value="{{ ed.athena }}" {% if ed == pres.educator2 %}selected{% endif %} >{{ ed.first_name }} {{ ed.last_name }}</option>
                                                         {% endfor %}
                                                 </select>                                               
                                         </td>
@@ -64,7 +64,7 @@
                                                 <select id="sup_select_{{pres.id}}"  onchange="updatePresentation('{{pres.id}}')">
                                                         <option value="Null"> None </option>
                                                         {% for ed in educator_list %}
-                                                                <option value="{{ ed.athena }}" {% if ed == pres.supporter %}selected{% endif %} >{{ ed }}</option>
+                                                                <option value="{{ ed.athena }}" {% if ed == pres.supporter %}selected{% endif %} >{{ ed.first_name }} {{ ed.last_name }}</option>
                                                         {% endfor %}
                                                 </select>                                               
                                         </td>
@@ -91,7 +91,7 @@
                         </div>
                     </div>
 		<div class="row">
-			<div class="col-lg-8">
+			<div class="col-lg-3">
 			<h2>New Presentation</h2>
 				<form action="new_presentation/" method="post">
     					{% csrf_token %}

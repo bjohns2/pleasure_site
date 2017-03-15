@@ -1,0 +1,57 @@
+{% extends 'base_internal.html' %}    
+
+{% block content %}
+
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            History <small>Stuff from the past</small>
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li class="active">
+                                <i class="fa fa-dashboard"></i> History
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+		
+		<div class="row">
+		    <div class="col-md-4">
+			<div class= "panel panel-info">
+			    <div class="panel-heading"> Presentations </div>
+			    <div class="panel-body">
+			   	<ul>
+				{% for pres in presentation_list %}
+					<li> {{ pres }} with {{ pres.attendees }} attendees </li>
+				{% endfor %}
+				<ul> 
+			   </div>
+			</div>
+		    </div>
+		    <div class="col-md-4">
+			<div class= "panel panel-info">
+                            <div class="panel-heading"> Trainings </div>
+                            <div class="panel-body">
+                                <ul>
+                                {% for t in training_list %}
+                                      <li> {{ t }} </li>
+                                {% endfor %}
+			        </ul>
+			    </div>
+			</div>
+		    </div>
+		    <div class="col-md-4">
+                        <div class= "panel panel-info">
+                            <div class="panel-heading"> Other Events </div>
+                            <div class="panel-body">
+                                <p> This will show other (Pleasure-related) events from the past</p>
+                            </div>
+                        </div>
+                    </div>
+
+		</div>
+
+{% endblock %}

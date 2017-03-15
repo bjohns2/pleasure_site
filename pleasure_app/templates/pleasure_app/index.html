@@ -24,7 +24,15 @@
 			    <div class="panel-heading"> Last week </div>
 			    <div class="panel-body">
 				<p> This will show events that happened last week. </p>
-			    </div>
+			   	<ul>
+				{% for pres in last_week_presentations %}
+					<li> {{ pres }} </li>
+				{% endfor %}
+	                        {% for train in last_week_trainings %}
+                                        <li> {{ train }} </li>
+                                {% endfor %}
+				<ul> 
+			   </div>
 			</div>
 		    </div>
 		    <div class="col-md-4">
@@ -32,7 +40,15 @@
                             <div class="panel-heading"> Next week </div>
                             <div class="panel-body">
                                 <p> This will show events scheduled to happen next week. </p>
-                            </div>
+                                <ul>
+                                {% for pres in next_week_presentations %}
+                                      <li> {{ pres }} </li>
+                                {% endfor %}
+                                {% for train in next_week_trainings %}
+                                      <li> {{ train }} </li>
+                                {% endfor %}
+                                <ul>  
+			    </div>
 			</div>
 		    </div>
 		</div>
