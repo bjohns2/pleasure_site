@@ -26,12 +26,28 @@
 				<p> This will show events that happened last week. </p>
 			   	<ul>
 				{% for pres in last_week_presentations %}
-					<li> {{ pres }} </li>
+					<li> Module {{ pres.subject }} at {{pres.location }} on {{ pres.date }} 
+					<ul>
+						<li> {{ pres.educator1 }} </li>
+						<li> {{ pres.educator2 }} </li> 
+						<li> {{ pres.supporter }} </li>
+						<li> Attendees: {% if pres.attendees == -1 %} Unknown {% else %} {{ pres.attendees }} {% endif %} </li>
+					</ul>
 				{% endfor %}
-	                        {% for train in last_week_trainings %}
-                                        <li> {{ train }} </li>
+	                        {% for t in last_week_trainings %}
+                                        <li> {{ t }} </li>
+					<ul>
+						{% if t.notes %} <li> {{ t.notes }} </li> {% endif %}
+						<li> Attendeeds: </li>
+						<ul>{% for ed in educator_list %}
+							{% if ed.trained_communication == t or ed.trained_values == t or ed.trained_identity == t or ed.trained_love == t or ed.trained_culture == t %}
+							<li> {{ ed }} </li>
+							{% endif %}
+						{% endfor %}
+						</ul>
+					</ul>
                                 {% endfor %}
-				<ul> 
+				</ul> 
 			   </div>
 			</div>
 		    </div>
@@ -42,11 +58,26 @@
                                 <p> This will show events scheduled to happen next week. </p>
                                 <ul>
                                 {% for pres in next_week_presentations %}
-                                      <li> {{ pres }} </li>
-                                {% endfor %}
-                                {% for train in next_week_trainings %}
-                                      <li> {{ train }} </li>
-                                {% endfor %}
+                                   <li> Module {{ pres.subject }} at {{pres.location }} on {{ pres.date }}           
+                                        <ul> 
+                                                <li> {{ pres.educator1 }} </li>
+                                                <li> {{ pres.educator2 }} </li> 
+                                                <li> {{ pres.supporter }} </li>
+                                        </ul>
+				{% endfor %}
+                                {% for t in next_week_trainings %}
+                                    <li> {{ t }} </li>
+                                        <ul>
+                                                {% if t.notes %} <li> {{ t.notes }} </li> {% endif %}
+                                                <li> Attendeeds: </li>
+                                                <ul>{% for ed in educator_list %}
+                                                        {% if ed.trained_communication == t or ed.trained_values == t or ed.trained_identity == t or ed.trained_love == t or ed.trained_culture == t %}
+                                                        <li> {{ ed }} </li>
+                                                        {% endif %}
+                                                {% endfor %}
+                                                </ul>
+                                        </ul>
+				{% endfor %}
                                 <ul>  
 			    </div>
 			</div>

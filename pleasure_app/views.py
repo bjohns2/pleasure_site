@@ -9,6 +9,7 @@ from .models import Educator
 from .models import Presentation
 from .models import Meeting
 from .models import Training
+from .models import Event
 
 # Create your views here.
 def index(request):
@@ -160,10 +161,12 @@ def history(request):
         presentation_list = Presentation.objects.filter(date__lte=datetime.now()).order_by('-date')
         training_list = Training.objects.all().filter(date__lte=datetime.now()).order_by('-date')
 	template = loader.get_template('pleasure_app/history.html')
-        context = {
+        event_list = Event.objects.all().filter(date__lte=datetime.now()).order_by('-date')
+	context = {
                 'educator_list':educator_list,
                 'presentation_list':presentation_list,
         	'training_list':training_list,
+		'event_list':event_list,
 	}
         return HttpResponse(template.render(context, request))
 

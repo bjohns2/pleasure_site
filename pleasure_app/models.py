@@ -111,3 +111,14 @@ class Meeting(models.Model):
 	def __str__(self):
 		return "Meeting at " + str(self.date) + " with " + str(self.attendees.count()) + " educators"
 
+class Event(models.Model):
+	date = models.DateTimeField()
+	attendees = models.ManyToManyField(Educator,blank=True)
+	location = models.CharField(max_length=200,null=True,blank=True)
+	title = models.CharField(max_length=200,null=True,blank=True)
+	notes = models.TextField(null=True,blank=True)
+
+	def __str__(self):
+		return "Event "+ str(self.title) + " at " + str(self.location) + ", " + str(self.date)
+	
+

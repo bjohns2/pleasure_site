@@ -25,7 +25,13 @@
 			    <div class="panel-body">
 			   	<ul>
 				{% for pres in presentation_list %}
-					<li> {{ pres }} with {{ pres.attendees }} attendees </li>
+					<li> Module {{ pres.subject }} at {{ pres.location }} on {{ pres.date }} 
+					<ul>
+						<li> {{ pres.educator1 }} </li>
+						<li> {{ pres.educator2 }} </li>
+						<li> {{ pres.supporter }} </li>
+						<li>  Attendees: {% if pres.attendees == -1 %} Unkown {% else %} {{ pres.attendees }} {% endif %} </li>
+					</ul>
 				{% endfor %}
 				<ul> 
 			   </div>
@@ -47,8 +53,11 @@
                         <div class= "panel panel-info">
                             <div class="panel-heading"> Other Events </div>
                             <div class="panel-body">
-                                <p> This will show other (Pleasure-related) events from the past</p>
-                            </div>
+                            	<ul>
+				{% for e in event_list %}
+					<li> {{ e.title }} at {{e.location}}, {{ e.date }} </li>
+				{% endfor %}
+			    </div>
                         </div>
                     </div>
 
