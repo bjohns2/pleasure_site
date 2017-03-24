@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.utils import timezone
 from datetime import datetime, timedelta
-
+from django.core.mail import send_mail
 
 from .models import Educator
 from .models import Presentation
@@ -30,7 +30,7 @@ def index(request):
 
 def scheduling(request):
 	educator_list = Educator.objects.filter(active=True).order_by('first_name')
-	presentation_list = Presentation.objects.all().order_by('date')
+	presentation_list = Presentation.objects.all().filter(date__gte=timezone.now()).order_by('date')
 	template = loader.get_template('pleasure_app/scheduling.html')
 	context = {
 		'educator_list':educator_list,
@@ -169,4 +169,13 @@ def history(request):
 		'event_list':event_list,
 	}
         return HttpResponse(template.render(context, request))
+
+def send_reminder_email():
+    send_mail(
+    	'[Pleasure] A reminder email',
+    	'Here is the message.',
+    	'pleasure-reminders@mit.edu',
+    	['bjohns@mit.edu'],
+    	fail_silently=False,
+    )
 

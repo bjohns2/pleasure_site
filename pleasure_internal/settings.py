@@ -123,6 +123,14 @@ USE_TZ = True
 STATIC_URL = '/internal/my_static/'
 #STATIC_ROOT = '/afs/athena.mit.edu/activity/p/pleasure/Scripts/django/pleasure_internal/static/'
 STATIC_ROOT = '/afs/athena.mit.edu/activity/p/pleasure/web_scripts/internal/my_static'
+
+# Login stuff
 LOGIN_REDIRECT_URL = 'index'
 
+
+# Email Stuff
+EMAIL_HOST = "outgoing.mit.edu"
+EMAIL_PORT = 25
+DEFAULT_FROM_EMAIL = "pleasure@mit.edu"
+LOGIN_URL = "/internal/login/"
 

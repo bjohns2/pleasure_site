@@ -20,45 +20,22 @@
 		
 		<div class="row">
 		    <div class="col-md-4">
-			<div class= "panel panel-info">
-			    <div class="panel-heading"> Presentations </div>
-			    <div class="panel-body">
-			   	<ul>
-				{% for pres in presentation_list %}
-					<li> Module {{ pres.subject }} at {{ pres.location }} on {{ pres.date }} 
-					<ul>
-						<li> {{ pres.educator1 }} </li>
-						<li> {{ pres.educator2 }} </li>
-						<li> {{ pres.supporter }} </li>
-						<li>  Attendees: {% if pres.attendees == -1 %} Unkown {% else %} {{ pres.attendees }} {% endif %} </li>
-					</ul>
-				{% endfor %}
-				<ul> 
-			   </div>
-			</div>
+			<h2> Presentations </h2>
+			{% for p in presentation_list %}
+				{% include "pleasure_app/presentation_panel.html" %} 
+			{% endfor %} 
 		    </div>
 		    <div class="col-md-4">
-			<div class= "panel panel-info">
-                            <div class="panel-heading"> Trainings </div>
-                            <div class="panel-body">
-                                <ul>
-                                {% for t in training_list %}
-                                      <li> {{ t }} </li>
-                                {% endfor %}
-			        </ul>
-			    </div>
-			</div>
+			<h2> Trainings </h2>
+			{% for t in training_list %}
+				{% include "pleasure_app/training_panel.html" %}
+			{% endfor %}
 		    </div>
 		    <div class="col-md-4">
-                        <div class= "panel panel-info">
-                            <div class="panel-heading"> Other Events </div>
-                            <div class="panel-body">
-                            	<ul>
-				{% for e in event_list %}
-					<li> {{ e.title }} at {{e.location}}, {{ e.date }} </li>
-				{% endfor %}
-			    </div>
-                        </div>
+			<h2> Other Events </h2>
+			{% for e in event_list %}
+				{% include "pleasure_app/event_panel.html" %}
+			{% endfor %}
                     </div>
 
 		</div>

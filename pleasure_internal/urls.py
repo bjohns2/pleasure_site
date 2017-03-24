@@ -17,11 +17,18 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.generic.edit import CreateView
 from django.contrib.auth import views as auth_views
+from django.contrib.auth import urls
 
 
 urlpatterns = [
 	url(r'^', include('pleasure_app.urls')),
+	url('^', include('django.contrib.auth.urls')),
 	url(r'^admin/', admin.site.urls),
-    	url(r'^login/$', auth_views.login, name='login'),
-    	url(r'^logout/$', auth_views.logout, {'next_page':'login'}, name='logout'),
+#    	url(r'^login/$', auth_views.login, name='login'),
+#    	url(r'^logout/$', auth_views.logout, {'next_page':'login'}, name='logout'),
+#	url(r'^password_change$', auth_views.password_change, {'post_change_redirect':'/'},name='password_change'),
+#	url(r'^password_reset$', auth_views.password_reset, {'post_reset_redirect':'/'}, name='password_reset'),
 ]
+
+
+

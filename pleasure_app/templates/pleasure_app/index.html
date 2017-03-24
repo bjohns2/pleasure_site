@@ -80,8 +80,13 @@
 				{% endfor %}
                                 <ul>  
 			    </div>
-			</div>
+			</div>		
 		    </div>
-		</div>
-
+		    {% if user.username %}
+		    <div class="col-md-4">
+			<h2> {{ user.first_name }} {{ user.last_name }} </h2>
+			<p> You're logged in! There will eventually be info just for you here. </p>
+		    </div>
+		    {% endif %}
+		
 {% endblock %}
