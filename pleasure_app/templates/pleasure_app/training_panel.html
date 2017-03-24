@@ -1,10 +1,15 @@
 <div class= "panel panel-info">
-                            <div class="panel-heading"> {{ t }} </div>
+                            <div class="panel-heading"> Training: {{ t.module }} on {{ t.date }}  </div>
                             <div class="panel-body">
                                 <ul>
 				     <li> {{ t.notes }} </li>
-                                      <li> This will show who was there </li>
-                                </ul>
+                                      <li> Attendees </li>
+                                <ul>{% for ed in educator_list %}
+					{% if ed.trained_communication == t or ed.trained_values == t or ed.trained_identity == t or ed.trained_love == t or ed.trained_culture == t %}
+						<li> {{ ed.first_name }} {{ ed.last_name }}</li>
+					{% endif %}
+					{% endfor %}
+				</ul>
                             </div>
                         </div>
 

@@ -17,6 +17,7 @@ urlpatterns = [
 	url(r'^add_ed_to_training',views.add_ed_to_training,name='add_ed_to_training'),
 	url(r'^remove_ed_from_training',views.remove_ed_from_training,name='remove_ed_from_training'),
 	url(r'^history',views.history,name='history'),
+	url(r'^resources',views.resources,name='resources'),
         #url('^register/', CreateView.as_view(
         #    template_name='pleasure_app/register.html',
         #    form_class=UserCreationForm,

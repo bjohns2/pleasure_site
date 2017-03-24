@@ -20,67 +20,22 @@
 		
 		<div class="row">
 		    <div class="col-md-4">
-			<div class= "panel panel-info">
-			    <div class="panel-heading"> Last week </div>
-			    <div class="panel-body">
-				<p> This will show events that happened last week. </p>
-			   	<ul>
-				{% for pres in last_week_presentations %}
-					<li> Module {{ pres.subject }} at {{pres.location }} on {{ pres.date }} 
-					<ul>
-						<li> {{ pres.educator1 }} </li>
-						<li> {{ pres.educator2 }} </li> 
-						<li> {{ pres.supporter }} </li>
-						<li> Attendees: {% if pres.attendees == -1 %} Unknown {% else %} {{ pres.attendees }} {% endif %} </li>
-					</ul>
-				{% endfor %}
-	                        {% for t in last_week_trainings %}
-                                        <li> {{ t }} </li>
-					<ul>
-						{% if t.notes %} <li> {{ t.notes }} </li> {% endif %}
-						<li> Attendeeds: </li>
-						<ul>{% for ed in educator_list %}
-							{% if ed.trained_communication == t or ed.trained_values == t or ed.trained_identity == t or ed.trained_love == t or ed.trained_culture == t %}
-							<li> {{ ed }} </li>
-							{% endif %}
-						{% endfor %}
-						</ul>
-					</ul>
-                                {% endfor %}
-				</ul> 
-			   </div>
-			</div>
+			<h2> Last Week </h2>
+			{% for p in last_week_presentations %}
+                                {% include "pleasure_app/presentation_panel.html" %}
+                        {% endfor %}
+	                {% for t in last_week_trainings %}
+                                {% include "pleasure_app/training_panel.html" %}
+			{% endfor %}
 		    </div>
 		    <div class="col-md-4">
-			<div class= "panel panel-info">
-                            <div class="panel-heading"> Next week </div>
-                            <div class="panel-body">
-                                <p> This will show events scheduled to happen next week. </p>
-                                <ul>
-                                {% for pres in next_week_presentations %}
-                                   <li> Module {{ pres.subject }} at {{pres.location }} on {{ pres.date }}           
-                                        <ul> 
-                                                <li> {{ pres.educator1 }} </li>
-                                                <li> {{ pres.educator2 }} </li> 
-                                                <li> {{ pres.supporter }} </li>
-                                        </ul>
-				{% endfor %}
-                                {% for t in next_week_trainings %}
-                                    <li> {{ t }} </li>
-                                        <ul>
-                                                {% if t.notes %} <li> {{ t.notes }} </li> {% endif %}
-                                                <li> Attendeeds: </li>
-                                                <ul>{% for ed in educator_list %}
-                                                        {% if ed.trained_communication == t or ed.trained_values == t or ed.trained_identity == t or ed.trained_love == t or ed.trained_culture == t %}
-                                                        <li> {{ ed }} </li>
-                                                        {% endif %}
-                                                {% endfor %}
-                                                </ul>
-                                        </ul>
-				{% endfor %}
-                                <ul>  
-			    </div>
-			</div>		
+		    	<h2> Next Week </h2>
+			{% for p in next_week_presentations %}
+                                {% include "pleasure_app/presentation_panel.html" %}
+                        {% endfor %}
+                        {% for t in next_week_trainings %}
+                                {% include "pleasure_app/training_panel.html" %}
+                        {% endfor %}
 		    </div>
 		    {% if user.username %}
 		    <div class="col-md-4">

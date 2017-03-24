@@ -170,12 +170,17 @@ def history(request):
 	}
         return HttpResponse(template.render(context, request))
 
-def send_reminder_email():
-    send_mail(
-    	'[Pleasure] A reminder email',
-    	'Here is the message.',
-    	'pleasure-reminders@mit.edu',
-    	['bjohns@mit.edu'],
-    	fail_silently=False,
-    )
+#def send_reminder_email():
+#    send_mail(
+#    	'[Pleasure] A reminder email',
+#    	'Here is the message.',
+#    	'pleasure-reminders@mit.edu',
+#    	['bjohns@mit.edu'],
+#    	fail_silently=False,
+#    )
+
+def resources(request):
+        template = loader.get_template('pleasure_app/resources.html')
+        context = {}
+        return HttpResponse(template.render(context, request))
 

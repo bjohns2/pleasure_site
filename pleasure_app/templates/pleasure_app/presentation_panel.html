@@ -1,14 +1,12 @@
 <div class= "panel panel-info">
 	<div class="panel-heading"> Module {{ p.subject }} at {{ p.location }} on {{ p.date }} </div>
-        	<div class="panel-body">
-                	<ul>
-                                        <ul>
-                                                <li> {{ p.educator1 }} </li>
-                                                <li> {{ p.educator2 }} </li>
-                                                <li> {{ p.supporter }} </li>
-                                                <li>  Attendees: {% if p.attendees == -1 %} Unkown {% else %} {{ p.attendees }} {% endif %} </li>
-                                        </ul>
-				<ul>
-                           </div>
-                        </div>
+        <div class="panel-body">
+                <ul>
+                	<li> Educator 1: {{ p.educator1.first_name }} {{ p.educator1.last_name }}</li>
+                        <li> Educator 2: {{ p.educator2.first_name }} {{ p.educator2.last_name }}</li>
+                        <li> Supporter: {{ p.supporter.first_name }} {{ p.supporter.last_name }}</li>
+                        <li>  Attendees: {% if p.attendees == -1 %} Unkown {% else %} {{ p.attendees }} {% endif %} </li>
+		<ul>
+        </div>
+</div>
 
