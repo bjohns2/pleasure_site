@@ -5754,6 +5754,42 @@ button.list-group-item-danger.active:focus {
 .panel-info > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #bce8f1;
 }
+.panel-presentation {
+  border-color: #d0c2ef;
+}
+.panel-presentation > .panel-heading {
+  color: #44258e;
+  background-color: #dfd6f5;
+  border-color: #d0c2ef;
+}
+.panel-presentation > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #d0c2ef;
+}
+.panel-presentation > .panel-heading .badge {
+  color: #dfd6f5;
+  background-color: #44258e;
+}
+.panel-presentation > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #d0c2ef;
+}
+.panel-training {
+  border-color: #b7faf7;
+}
+.panel-trianing > .panel-heading {
+  color: #0ba8a0;
+  background-color: #cffcfa;
+  border-color: #b7faf7;
+}
+.panel-training > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #b7faf7;
+}
+.panel-training > .panel-heading .badge {
+  color: #cffcfa;
+  background-color: #0ba8a0;
+}
+.panel-training > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #b7faf7;
+}
 .panel-warning {
   border-color: #faebcc;
 }

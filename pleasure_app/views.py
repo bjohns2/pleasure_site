@@ -18,6 +18,8 @@ def index(request):
 	next_week_presentations = Presentation.objects.filter(date__lte=datetime.now()+timedelta(days=7)).filter(date__gte=datetime.now()).order_by('date')
 	last_week_trainings = Training.objects.filter(date__gte=datetime.now()-timedelta(days=7)).filter(date__lte=datetime.now()).order_by('date')
 	next_week_trainings = Training.objects.filter(date__lte=datetime.now()+timedelta(days=7)).filter(date__gte=datetime.now()).order_by('date')
+	last_week_events = Event.objects.filter(date__gte=datetime.now()-timedelta(days=7)).filter(date__lte=datetime.now()).order_by('date')
+	next_week_events = Event.objects.filter(date__lte=datetime.now()+timedelta(days=7)).filter(date__gte=datetime.now()).order_by('date')
 	template = loader.get_template('pleasure_app/index.html')
 	context = {
 		'educator_list':educator_list,
@@ -25,6 +27,8 @@ def index(request):
 		'last_week_presentations':last_week_presentations,
 		'last_week_trainings':last_week_trainings,
 		'next_week_trainings':next_week_trainings,
+		'last_week_events':last_week_events,
+		'next_week_events':next_week_events,
 	}
 	return HttpResponse(template.render(context, request))
 
@@ -181,6 +185,9 @@ def history(request):
 
 def resources(request):
         template = loader.get_template('pleasure_app/resources.html')
-        context = {}
+        educator_list = Educator.objects.filter(active=True).order_by('first_name')
+	context = {
+		'educator_list':educator_list,
+	}
         return HttpResponse(template.render(context, request))
 

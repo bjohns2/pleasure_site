@@ -27,6 +27,9 @@
 	                {% for t in last_week_trainings %}
                                 {% include "pleasure_app/training_panel.html" %}
 			{% endfor %}
+		    	{% for e in last_week_events %}
+				{% include "pleasure_app/event_panel.html" %}
+			{% endfor %}	
 		    </div>
 		    <div class="col-md-4">
 		    	<h2> Next Week </h2>
@@ -36,6 +39,9 @@
                         {% for t in next_week_trainings %}
                                 {% include "pleasure_app/training_panel.html" %}
                         {% endfor %}
+                        {% for e in next_week_events %}
+                                {% include "pleasure_app/event_panel.html" %}
+                        {% endfor %}  
 		    </div>
 		    {% if user.username %}
 		    <div class="col-md-4">

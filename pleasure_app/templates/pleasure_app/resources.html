@@ -26,6 +26,11 @@
 			<p> <a href="https://github.com/bjohns2/pleasure_site/"> Website Github & Readme</a></p>
 		    </div>
 		</div>
+		<h3> Active Pleducators List </h3>
+		<h4> No picture, or want to change it? Email a (preferably square image) to bjohns@mit.edu! </h4>
+		{% for ed in educator_list %}
+			<p> {% if ed.photo %} <img src="{{ ed.photo.url }}" height="100" width="100">{% endif %} {{ ed.first_name }} {{ ed.last_name }}, {{ ed.training_class }}, {{ ed.graduation_year }}{% if ed.living_group %}, {{ ed.living_group }} {% endif %} </p>
+		{% endfor %}
 {% endblock %}
 {% block scripts %}
 {% endblock %}

@@ -54,7 +54,7 @@
 			<h2> Training Signups </h2>
 			{% for training in future_training_list %}
 			<div class="panel panel-info">
-				<div class="panel-heading"> {{ training }} </div>
+				<div class="panel-heading"><h3 class="panel-title"> {{ training }} </h3></div>
 				<div class="panel-body">
 					<p> {{ training.notes }} </p>
 	                               		<select id="training_select_{{training.id}}" onchange="addEdToTraining('{{training.id}}')">

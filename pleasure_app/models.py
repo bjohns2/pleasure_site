@@ -11,7 +11,10 @@ class Educator(models.Model):
 	graduation_year = models.IntegerField(default=0)
 	athena = models.CharField(max_length=20)
 	active = models.BooleanField(default=True)
-
+	photo = models.ImageField(blank=True,null=True)
+	living_group = models.CharField(max_length = 100, null=True,blank=True)
+	bio = models.TextField(null=True,blank=True)
+	
 	trained_communication = models.ForeignKey(
 		'Training',
 		related_name='com_training',

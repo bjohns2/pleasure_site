@@ -46,7 +46,7 @@
                                 </thead>
 				{% for ed in educator_list %}
                                 <tr>
-					<td>{{ ed.first_name }} {{ed.last_name}}</td>
+					<td>{{ ed.first_name }} {{ed.last_name}} </td>
                                         <td><label><input type="checkbox" id="new_attend_{{ed.athena}}"></label></td>
 					{% for meeting in meeting_list %}
                                         <td>{% if ed in meeting.attendees.all %}

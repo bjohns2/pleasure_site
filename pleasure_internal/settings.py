@@ -124,6 +124,9 @@ STATIC_URL = '/internal/my_static/'
 #STATIC_ROOT = '/afs/athena.mit.edu/activity/p/pleasure/Scripts/django/pleasure_internal/static/'
 STATIC_ROOT = '/afs/athena.mit.edu/activity/p/pleasure/web_scripts/internal/my_static'
 
+MEDIA_ROOT = '/afs/athena.mit.edu/activity/p/pleasure/web_scripts/internal/media'
+MEDIA_URL = '/internal/media/' 
+
 # Login stuff
 LOGIN_REDIRECT_URL = 'index'
 

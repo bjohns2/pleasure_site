@@ -1,9 +1,19 @@
 <div class= "panel panel-info">
-                            <div class="panel-heading"> {{ e.title }} at {{e.location}}, {{ e.date }} </div>
+                            <div class="panel-heading">
+				<h3 class="panel-title"> {{ e.title }} at {{e.location}}, {{ e.date }} </h3>
+			    </div>
                             <div class="panel-body">
                                 <ul>	
 					<li> Notes: {{ e.ntoes }} </li>
-                                        <li> Attendees: {% if e.attendees %} {{ e.attendees }} {% else %} None {% endif %}</li>
-                           	</ul> 
+                                        <li> Attendees: {% if e.attendees %} 
+						<ul>{% for ed in e.attendees.all  %} 
+							<li>{{ ed.first_name }} {{ ed.last_name }}</li> 
+						{% endfor %} 
+						</ul>
+						{% else %} 
+						None 
+						{% endif %}
+             				</li>
+				</ul> 
 			   </div>
                         </div>
