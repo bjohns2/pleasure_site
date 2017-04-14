@@ -18,6 +18,13 @@ Each page of the site only defines its own code for those two content blocks; it
 ### Automated Emails
 They are sent. 
 
+## How you change things
+1. ssh into athena
+2. `ssh -k pleasure@scripts`
+3. `cd ../Scripts/django/pleasure_internal/`
+Then go to town! (but like, carefully.) Remember that there's no backup for deleting or overwriting files in development, so if you're doing that be sure to push to git occationally so that you can always revert to an earlier commit. 
+
+
 ## Todos
 - Write the above section w/ more detail
 - finish dashboard?
